@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!--
+    SEO: byt ut alla [platshållare] innan publicering. Se README.md.
+    Canonical, og:url, og:image och twitter:image måste vara absoluta URL:er.
+  -->
+  <title>Kranbil och specialtransporter i Stockholm | Seljanen Transport AB</title>
+  <meta name="description" content="Seljanen Transport AB utför lyft och transporter med kranbil samt specialtransporter i Stockholm. Vi hjälper till med uppdrag där en vanlig lastbil inte räcker.">
+  <link rel="canonical" href="https://seljanentransport.se/">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#f5f3ee" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#111316" media="(prefers-color-scheme: dark)">
+  <meta name="color-scheme" content="light dark">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="sv_SE">
+  <meta property="og:site_name" content="Seljanen Transport AB">
+  <meta property="og:title" content="Kranbil och specialtransporter i Stockholm | Seljanen Transport AB">
+  <meta property="og:description" content="Lyft och transport med kranbil, specialtransporter och kundanpassade lösningar för uppdrag som kräver mer än en vanlig lastbil.">
+  <meta property="og:url" content="https://seljanentransport.se/">
+  <meta property="og:image" content="https://seljanentransport.se/assets/images/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Kranbil som lyfter en last – Seljanen Transport AB">
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Kranbil och specialtransporter i Stockholm | Seljanen Transport AB">
+  <meta name="twitter:description" content="Lyft och transport med kranbil, specialtransporter och kundanpassade lösningar.">
+  <meta name="twitter:image" content="https://seljanentransport.se/assets/images/og-image.png">
+
+  <!-- Ikoner och manifest (relativa sökvägar – fungerar även under /repo-namn/) -->
+  <!-- Favicon: PNG-reserver för ljust/mörkt läge, SVG:n byter själv färg via prefers-color-scheme -->
+  <link rel="icon" href="assets/icons/icon-192.png" sizes="32x32" type="image/png" media="(prefers-color-scheme: light)">
+  <link rel="icon" href="assets/icons/favicon-32-dark.png" sizes="32x32" type="image/png" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+
+  <!-- Sätter färgtema innan sidan ritas för att undvika blink -->
+  <script>
+    (function () {
+      var d = document.documentElement, t = null;
+      d.classList.add('js');
+      try { t = localStorage.getItem('theme'); } catch (e) {}
+      if (t !== 'light' && t !== 'dark') {
+        t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      d.setAttribute('data-theme', t);
+    })();
+  </script>
+
+  <link rel="preload" href="assets/images/hero.svg" as="image">
+  <link rel="stylesheet" href="css/styles.css">
+  <script type="module" src="js/main.js"></script>
+
+  <!-- Strukturerad data. Ersätt platshållarna; ta bort fält som inte används. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "@id": "https://seljanentransport.se/#foretag",
+    "name": "Seljanen Transport AB",
+    "description": "Lyft och transport med kranbil, specialtransporter och kundanpassade transportlösningar.",
+    "url": "https://seljanentransport.se/",
+    "image": "https://seljanentransport.se/assets/images/og-image.png",
+    "logo": "https://seljanentransport.se/assets/icons/icon-512.png",
+    "telephone": "+46736997011",
+    "email": "andre@seljanentransport.se",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Venusvägen 8c",
+      "postalCode": "141 33",
+      "addressLocality": "Huddinge",
+      "addressRegion": "Stockholms län",
+      "addressCountry": "SE"
+    },
+    "areaServed": "Stockholm",
+    "legalName": "Seljanen Transport AB",
+    "taxID": "559071-7756",
+    "makesOffer": [
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Kranbil", "description": "Lyft och transport med kranbil för bygg, industri, markarbeten och andra uppdrag." } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Specialtransporter", "description": "Transport av material, maskiner och gods där standardlösningar inte räcker." } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Kundanpassade transportlösningar", "description": "Planering av utrustning, räckvidd och transportupplägg utifrån uppdragets förutsättningar." } }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <!-- Ikonbibliotek (återanvänds med <use>) -->
+  <svg class="sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="i-crane" viewBox="0 0 24 24"><path d="M2 17v-4h11v4M13 17v-6h4.5l3.5 3.5V17M2 17h19M11 13V9L3 5M3 5v4M2 9h2"/><circle cx="6" cy="18.5" r="1.8"/><circle cx="17" cy="18.5" r="1.8"/></symbol>
+    <symbol id="i-truck" viewBox="0 0 24 24"><path d="M2 5h12v11H2zM14 9h4l4 4v3h-8"/><circle cx="6.5" cy="17.5" r="2"/><circle cx="17.5" cy="17.5" r="2"/></symbol>
+    <symbol id="i-route" viewBox="0 0 24 24"><circle cx="5" cy="18" r="2.2"/><circle cx="19" cy="6" r="2.2"/><path d="M7.2 18H14a3.5 3.5 0 0 0 0-7h-4a3.5 3.5 0 0 1 0-7h6.8"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M6.3 17.7l-1.4 1.4M19.1 4.9l-1.4 1.4"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-ruler" viewBox="0 0 24 24"><path d="M21.3 8.7 8.7 21.3a1 1 0 0 1-1.4 0l-4.6-4.6a1 1 0 0 1 0-1.4L15.3 2.7a1 1 0 0 1 1.4 0l4.6 4.6a1 1 0 0 1 0 1.4zM7.5 10.5l2 2M10.5 7.5l2 2M13.5 4.5l2 2M4.5 13.5l2 2"/></symbol>
+    <symbol id="i-flex" viewBox="0 0 24 24"><path d="m17 2 4 4-4 4M3 11V9a3 3 0 0 1 3-3h15M7 22l-4-4 4-4M21 13v2a3 3 0 0 1-3 3H3"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+  </svg>
+
+  <a class="skip-link" href="#innehall">Hoppa till innehållet</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="Seljanen Transport AB – till början av sidan">
+        <!-- <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><rect width="32" height="32" rx="6"/><path d="M9 8h14M16 8v10a4 4 0 1 1-4 4"/></svg> -->
+        <img src="assets/icons/icon-192.png" alt="Seljanen Transport AB logotyp" width="32" height="32" style="border-radius: var(--radius);">
+        <span class="brand-name">Seljanen Transport AB</span>
+      </a>
+
+      <nav class="site-nav" id="huvudmeny" aria-label="Huvudmeny">
+        <ul>
+          <li><a href="#tjanster">Tjänster</a></li>
+          <li><a href="#arbetssatt">Arbetssätt</a></li>
+          <li><a href="#om-oss">Om oss</a></li>
+          <li><a href="#bilder">Bilder</a></li>
+          <li><a href="#kontakt">Kontakt</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <a class="btn btn-small btn-primary header-call" href="tel:+46736997011">
+          <svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg>
+          <span>073-699 70 11</span>
+        </a>
+        <button class="icon-btn theme-toggle" type="button" aria-label="Byt färgtema">
+          <svg class="icon icon-sun" aria-hidden="true"><use href="#i-sun"/></svg>
+          <svg class="icon icon-moon" aria-hidden="true"><use href="#i-moon"/></svg>
+        </button>
+        <button class="icon-btn nav-toggle" type="button" aria-expanded="false" aria-controls="huvudmeny" aria-label="Öppna meny">
+          <svg class="icon icon-menu" aria-hidden="true"><use href="#i-menu"/></svg>
+          <svg class="icon icon-close" aria-hidden="true"><use href="#i-close"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="innehall">
+    <!-- HERO -->
+    <section class="hero" id="top" aria-labelledby="hero-rubrik">
+      <div class="container hero-grid">
+        <div class="hero-text">
+          <p class="eyebrow">Kranbil · Specialtransporter · Stockholm</p>
+          <h1 id="hero-rubrik">Lyft och transport för uppdrag som kräver mer</h1>
+          <p class="lead">
+            Seljanen Transport AB arbetar med kranbil, specialtransporter och kundanpassade lösningar.
+            Vi hjälper till när godset är tungt, otympligt eller ska till en plats där en vanlig lastbil inte räcker.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#kontakt">
+              Kontakta oss
+              <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg>
+            </a>
+            <a class="btn btn-ghost" href="#tjanster">Se vad vi kan hjälpa till med</a>
+          </div>
+          <ul class="hero-points" aria-label="I korthet">
+            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Lyft och transport i samma uppdrag</li>
+            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Planering utifrån platsens förutsättningar</li>
+            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Direkt kontakt med den som utför jobbet</li>
+          </ul>
+        </div>
+
+        <figure class="hero-media">
+          <!-- Byt till företagets egen bild: lägg t.ex. hero.webp + hero.jpg i assets/images/ (se README). -->
+          <picture>
+            <img src="assets/images/hero.svg" width="1200" height="900"
+                 alt="Kranbil med utfälld kran som lyfter en last bakom lastbilen"
+                 fetchpriority="high" decoding="async">
+          </picture>
+          <figcaption class="plate" aria-hidden="true">
+            <span>Lyft</span><span>Transport</span><span>Placering</span>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <div class="stripe" aria-hidden="true"></div>
+
+    <!-- TJÄNSTER -->
+    <section class="section" id="tjanster" aria-labelledby="tjanster-rubrik">
+      <div class="container">
+        <header class="section-head">
+          <p class="section-index"><span>01</span> Tjänster</p>
+          <h2 id="tjanster-rubrik">Vad vi kan hjälpa till med</h2>
+          <p class="section-intro">
+            Vi tar oss an uppdrag som kräver både lyft och transport – från enklare leveranser med kran
+            till transporter som behöver planeras i detalj.
+          </p>
+        </header>
+
+        <div class="cards">
+          <article class="card">
+            <div class="card-icon"><svg class="icon" aria-hidden="true"><use href="#i-crane"/></svg></div>
+            <h3>Kranbil</h3>
+            <p>Transport och lyft med kranbil för bygg, industri, markarbeten och andra uppdrag. Godset lyfts av och placeras där det behövs, inte bara där bilen kan stanna.</p>
+            <ul class="checklist">
+              <li>Leverans och lyft av byggmaterial</li>
+              <li>Placering av tungt gods på plats</li>
+              <li>Lyft där åtkomsten är begränsad</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <div class="card-icon"><svg class="icon" aria-hidden="true"><use href="#i-truck"/></svg></div>
+            <h3>Specialtransporter</h3>
+            <p>Transport av material, maskiner och annat gods där standardlösningar inte räcker – på grund av vikt, mått, form eller hur lastning och lossning måste gå till.</p>
+            <ul class="checklist">
+              <li>Maskiner och utrustning</li>
+              <li>Gods med ovanliga mått eller vikt</li>
+              <li>Transporter som kräver extra planering</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <div class="card-icon"><svg class="icon" aria-hidden="true"><use href="#i-route"/></svg></div>
+            <h3>Kundanpassade lösningar</h3>
+            <p>Varje uppdrag ställer olika krav på utrustning, räckvidd, lastkapacitet och transportupplägg. Vi går igenom förutsättningarna tillsammans med dig och hittar en praktisk lösning.</p>
+            <ul class="checklist">
+              <li>Genomgång av förutsättningar</li>
+              <li>Val av utrustning och upplägg</li>
+              <li>Samordning av lyft och transport</li>
+            </ul>
+          </article>
+        </div>
+
+        <p class="section-cta">
+          Osäker på om vi kan lösa ditt uppdrag? <a href="#kontakt">Beskriv det för oss</a> så ger vi besked.
+        </p>
+      </div>
+    </section>
+
+    <!-- ARBETSSÄTT -->
+    <section class="section section-alt" id="arbetssatt" aria-labelledby="arbetssatt-rubrik">
+      <div class="container">
+        <header class="section-head">
+          <p class="section-index"><span>02</span> Arbetssätt</p>
+          <h2 id="arbetssatt-rubrik">Från förfrågan till utfört uppdrag</h2>
+          <p class="section-intro">
+            Ett lyft eller en specialtransport blir sällan bättre än planeringen bakom. Därför börjar
+            vi alltid med att förstå uppdraget.
+          </p>
+        </header>
+
+        <div class="process-grid">
+          <ol class="steps">
+            <li>
+              <h3>Berätta om uppdraget</h3>
+              <p>Ring eller skicka e-post med en kort beskrivning av vad som ska lyftas eller flyttas, och vart.</p>
+            </li>
+            <li>
+              <h3>Vi går igenom förutsättningarna</h3>
+              <p>Vikt, mått, räckvidd, markunderlag och åtkomst avgör vilken utrustning och vilket upplägg som passar.</p>
+            </li>
+            <li>
+              <h3>Upplägg och besked</h3>
+              <p>Du får ett förslag på hur uppdraget kan genomföras och vad som behövs på plats.</p>
+            </li>
+            <li>
+              <h3>Utförande</h3>
+              <p>Uppdraget utförs enligt planen, med säkerheten i fokus från lastning till lossning.</p>
+            </li>
+          </ol>
+
+          <aside class="prep-card" aria-labelledby="forbered-rubrik">
+            <h3 id="forbered-rubrik">Bra att ha till hands när du hör av dig</h3>
+            <ul class="checklist">
+              <li>Vad som ska lyftas eller transporteras</li>
+              <li>Ungefärlig vikt och mått</li>
+              <li>Adress för hämtning och leverans</li>
+              <li>Förutsättningar på plats – underlag, hinder, avstånd</li>
+              <li>Önskat datum och tid</li>
+              <li>Gärna en bild på godset och platsen</li>
+            </ul>
+            <a class="btn btn-primary btn-block" href="mailto:andre@seljanentransport.se?subject=F%C3%B6rfr%C3%A5gan%20om%20uppdrag&amp;body=Hej%21%0D%0A%0D%0AJag%20vill%20ha%20hj%C3%A4lp%20med%20ett%20uppdrag.%0D%0A%0D%0AVad%20ska%20lyftas%20eller%20transporteras%3A%0D%0AUngef%C3%A4rlig%20vikt%20och%20m%C3%A5tt%3A%0D%0AH%C3%A4mtadress%3A%0D%0ALeveransadress%3A%0D%0AF%C3%B6ruts%C3%A4ttningar%20p%C3%A5%20plats%20%28underlag%2C%20hinder%2C%20avst%C3%A5nd%29%3A%0D%0A%C3%96nskat%20datum%20och%20tid%3A%0D%0A%0D%0ANamn%3A%0D%0ATelefon%3A%0D%0A">
+              <svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg>
+              Skicka förfrågan via e-post
+            </a>
+            <p class="small muted">Öppnar ditt e-postprogram med en färdig mall att fylla i.</p>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- OM OSS -->
+    <section class="section" id="om-oss" aria-labelledby="om-rubrik">
+      <div class="container about-grid">
+        <div class="about-text">
+          <p class="section-index"><span>03</span> Om oss</p>
+          <h2 id="om-rubrik">Personlig service och noggrann planering</h2>
+          <p class="lead-sm">
+            Seljanen Transport AB är ett transportföretag i Stockholm som arbetar med kranbil och specialtransporter.
+          </p>
+          <p>
+            Vi är ett mindre företag, och det märks i hur vi arbetar. Du pratar direkt med den som planerar och
+            utför uppdraget, och vi tar oss gärna an jobb som inte passar in i en standardmall. Vår erfarenhet
+            av lyft och transporter i olika miljöer gör att vi kan ge raka besked om vad som är möjligt.
+          </p>
+          <a class="text-link" href="#kontakt">Kontakta oss <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        </div>
+
+        <ul class="values" aria-label="Det vi prioriterar">
+          <li>
+            <svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg>
+            <h3>Säkerhet</h3>
+            <p>Lyft och transporter planeras så att människor, gods och omgivning skyddas.</p>
+          </li>
+          <li>
+            <svg class="icon" aria-hidden="true"><use href="#i-ruler"/></svg>
+            <h3>Noggrannhet</h3>
+            <p>Vi kontrollerar vikter, mått och förutsättningar innan vi åker ut.</p>
+          </li>
+          <li>
+            <svg class="icon" aria-hidden="true"><use href="#i-flex"/></svg>
+            <h3>Flexibilitet</h3>
+            <p>Ovanliga uppdrag kräver ofta ovanliga lösningar. Vi anpassar upplägget efter jobbet.</p>
+          </li>
+          <li>
+            <svg class="icon" aria-hidden="true"><use href="#i-user"/></svg>
+            <h3>Personlig kontakt</h3>
+            <p>En kontaktperson genom hela uppdraget – från första samtalet till utfört jobb.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- BILDER -->
+    <section class="section section-alt" id="bilder" aria-labelledby="bilder-rubrik">
+      <div class="container">
+        <header class="section-head">
+          <p class="section-index"><span>04</span> Bilder</p>
+          <h2 id="bilder-rubrik">Från våra uppdrag</h2>
+          <p class="section-intro">Ett urval av den typ av lyft och transporter vi arbetar med.</p>
+        </header>
+
+        <!-- Byt bilderna i assets/images/ och uppdatera alt-texterna (se README). -->
+        <div class="gallery">
+          <figure class="gallery-item gallery-item-wide">
+            <img src="assets/images/20250708_090933.jpg" width="1200" height="800" loading="lazy" decoding="async"
+                 alt="Kranbil som står uppställd med stödben utfällda under ett lyft">
+            <figcaption>Kranbil i arbete</figcaption>
+          </figure>
+          <figure class="gallery-item">
+            <img src="assets/images/20250930_072434.jpg" width="1200" height="800" loading="lazy" decoding="async"
+                 alt="Last som hänger i kranens krok under ett lyft">
+            <figcaption>Lyft</figcaption>
+          </figure>
+          <figure class="gallery-item">
+            <img src="assets/images/20260831_135407.jpg" width="1200" height="800" loading="lazy" decoding="async"
+                 alt="Lastbil med gods fastspänt på flaket under transport">
+            <figcaption>Transport</figcaption>
+          </figure>
+          <figure class="gallery-item gallery-item-wide">
+            <img src="assets/images/20260702_081805.jpg" width="1200" height="800" loading="lazy" decoding="async"
+                 alt="Maskin lastad på släp för en specialtransport">
+            <figcaption>Specialuppdrag</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- KONTAKT -->
+    <section class="section contact" id="kontakt" aria-labelledby="kontakt-rubrik">
+      <div class="container contact-grid">
+        <div class="contact-intro">
+          <p class="section-index"><span>05</span> Kontakt</p>
+          <h2 id="kontakt-rubrik">Kontakta oss</h2>
+          <p>
+            Hör av dig med en kort beskrivning av uppdraget, så återkommer vi med besked om hur det kan lösas.
+            Det enklaste är ofta att ringa.
+          </p>
+          <div class="contact-primary">
+            <a class="contact-big" href="tel:+46736997011">
+              <svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg>
+              <span><small>Ring oss</small>073-699 70 11</span>
+            </a>
+            <a class="contact-big" href="mailto:andre@seljanentransport.se">
+              <svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg>
+              <span><small>Skicka e-post</small>andre@seljanentransport.se</span>
+            </a>
+          </div>
+        </div>
+
+        <dl class="contact-details">
+          <div>
+            <dt><svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg>Telefon</dt>
+            <dd><a href="tel:+46736997011">073-699 70 11</a></dd>
+          </div>
+          <div>
+            <dt><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg>E-post</dt>
+            <dd><a href="mailto:andre@seljanentransport.se">andre@seljanentransport.se</a></dd>
+          </div>
+          <div>
+            <dt><svg class="icon" aria-hidden="true"><use href="#i-pin"/></svg>Adress</dt>
+            <dd><address>Venusvägen 8c<br>141 33 Huddinge</address></dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <p class="footer-brand">Seljanen Transport AB</p>
+        <p class="muted small">Kranbil och specialtransporter i Stockholm.</p>
+        <p class="muted small">Org.nr 559071-7756</p>
+      </div>
+      <nav aria-label="Sidfot">
+        <ul class="footer-links">
+          <li><a href="#tjanster">Tjänster</a></li>
+          <li><a href="#arbetssatt">Arbetssätt</a></li>
+          <li><a href="#om-oss">Om oss</a></li>
+          <li><a href="#bilder">Bilder</a></li>
+          <li><a href="#kontakt">Kontakt</a></li>
+        </ul>
+      </nav>
+      <p class="muted small footer-copy">© Seljanen Transport AB</p>
+    </div>
+  </footer>
+
+  <!-- Snabbkontakt på mobil -->
+  <nav class="mobile-bar" aria-label="Snabbkontakt">
+    <a class="btn btn-primary" href="tel:+46736997011">
+      <svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg>Ring
+    </a>
+    <a class="btn btn-ghost" href="mailto:andre@seljanentransport.se">
+      <svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg>E-post
+    </a>
+  </nav>
+</body>
+</html>
