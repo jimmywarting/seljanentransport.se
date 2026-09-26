@@ -6,41 +6,426 @@
   <title>Sidan hittades inte | Seljanen Transport AB</title>
   <meta name="robots" content="noindex">
   <meta name="color-scheme" content="light dark">
-  <!-- Stilarna ligger inline: 404-sidan kan visas på vilken sökväg som helst. -->
-  <style>
-    :root { --bg:#f5f3ee; --text:#16181b; --muted:#4b5058; --accent:#f2a100; --ink:#16181b; }
-    @media (prefers-color-scheme: dark) { :root { --bg:#111316; --text:#ecebe6; --muted:#a8adb5; --ink:#0b0c0e; } }
-    :root[data-theme="light"] { --bg:#f5f3ee; --text:#16181b; --muted:#4b5058; --ink:#16181b; }
-    :root[data-theme="dark"] { --bg:#111316; --text:#ecebe6; --muted:#a8adb5; --ink:#0b0c0e; }
-    body { margin:0; min-height:100vh; display:grid; place-items:center; background:var(--bg); color:var(--text);
-      font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif; line-height:1.6; padding:1.5rem; box-sizing:border-box; }
-    main { max-width:32rem; }
-    .code { font-family:"Bahnschrift","DIN Alternate",system-ui,sans-serif; font-weight:700; letter-spacing:.12em; color:var(--muted); }
-    h1 { font-family:"Bahnschrift","DIN Alternate",system-ui,sans-serif; font-size:clamp(2rem,6vw,3rem); line-height:1.1; margin:.5rem 0 1rem; }
-    p { color:var(--muted); }
-    a.btn { display:inline-block; margin-top:1rem; padding:.8rem 1.4rem; background:var(--accent); color:#16181b; font-weight:650; text-decoration:none; border-radius:6px; }
-    a:focus-visible { outline:3px solid #1a5fd0; outline-offset:3px; }
-    .stripe { position:fixed; left:0; right:0; top:0; height:10px; background:repeating-linear-gradient(-45deg,var(--accent) 0 14px,var(--ink) 14px 28px); }
-  </style>
   <script>
-    try { var t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t); } catch (e) {}
+    (function () {
+      var d = document.documentElement, t = null;
+      try { t = localStorage.getItem('theme'); } catch (e) {}
+      if (t !== 'light' && t !== 'dark') t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      d.setAttribute('data-theme', t);
+    })();
   </script>
+  <!-- Allt ligger inline: GitHub Pages visar 404-sidan på vilken sökväg som helst. -->
+  <style>
+    :root {
+      --bg: #f5f3ee; --surface: #fff; --text: #16181b; --muted: #4b5058; --border: #d5d0c5;
+      --accent: #f2a100; --accent-text: #8a5200; --ink: #16181b;
+      --sky1: #cfe3ee; --sky2: #f5efe2; --hill: #c9d3c3; --hill2: #b5c2ae;
+      --water1: #5f8fa8; --water2: #4a7890; --concrete: #9aa0a7; --concrete-dark: #71777e;
+      --digit: #16181b; --cloud: #ffffff; --night: 0; --day: 1;
+      color-scheme: light;
+    }
+    :root[data-theme="dark"] {
+      --bg: #111316; --surface: #1c2025; --text: #ecebe6; --muted: #a8adb5; --border: #2d3239;
+      --accent: #f5ad1b; --accent-text: #f5b42a; --ink: #0b0c0e;
+      --sky1: #0b1020; --sky2: #1c2436; --hill: #1a2029; --hill2: #151a21;
+      --water1: #1c3342; --water2: #142733; --concrete: #4d535b; --concrete-dark: #363b42;
+      --digit: #ecebe6; --cloud: #2a3140; --night: 1; --day: 0;
+      color-scheme: dark;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; background: var(--bg); color: var(--text);
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; line-height: 1.6;
+    }
+    .display { font-family: "Bahnschrift", "DIN Alternate", "Roboto Condensed", "Arial Narrow", system-ui, sans-serif; }
+    .stripe { height: 10px; background: repeating-linear-gradient(-45deg, var(--accent) 0 14px, var(--ink) 14px 28px); }
+    .wrap { max-width: 72rem; margin: 0 auto; padding: 0 clamp(1rem, 4vw, 2rem); }
+
+    /* ---------- Scen ---------- */
+    .scene { display: block; width: 100%; height: auto; }
+    .scene-frame { margin: 1.5rem 0 0; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); background: var(--sky2); }
+    .sky1 { stop-color: var(--sky1); } .sky2 { stop-color: var(--sky2); }
+    .hill { fill: var(--hill); } .hill2 { fill: var(--hill2); }
+    .water { fill: var(--water1); } .water-dark { fill: var(--water2); }
+    .concrete { fill: var(--concrete); } .concrete-dark { fill: var(--concrete-dark); }
+    .digit { fill: var(--digit); font-weight: 800; }
+    .digit-zero { fill: var(--accent); font-weight: 800; }
+    .cloud { fill: var(--cloud); }
+    .night-only { opacity: var(--night); }
+    .splash, .fish-jump { opacity: 0; }
+    .day-only { opacity: var(--day); }
+
+    .truck { cursor: pointer; }
+    .truck:focus { outline: none; }
+    .truck:focus-visible .truck-body { filter: drop-shadow(0 0 6px #7fb0ff); }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .drive { animation: drive 2.6s cubic-bezier(.15,.7,.25,1) both; }
+      .truck-body { transform-box: view-box; transform-origin: 505px 404px; animation: brake .5s ease-out 2.35s both; }
+      .wheel { transform-box: fill-box; transform-origin: center; animation: spin .45s linear 0s 5; }
+      .swing { transform-box: view-box; transform-origin: 668px 222px; animation: swing 2.4s ease-in-out infinite alternate; }
+      .clouds { animation: drift 60s linear infinite; }
+      .waves { animation: waves 6s linear infinite; }
+      .cone { transform-box: view-box; transform-origin: 790px 430px; animation: cone 9s ease-in 4s infinite; }
+      .splash { transform-box: fill-box; transform-origin: center bottom; animation: splash 9s ease-out 4s infinite; }
+      .fish-jump { animation: fishx 7s linear 2s infinite both; }
+      .fish { animation: fishy 7s ease-in-out 2s infinite; }
+      .star { animation: twinkle 3s ease-in-out infinite alternate; }
+      .star:nth-child(2n) { animation-delay: -1.2s; } .star:nth-child(3n) { animation-delay: -2s; }
+      .search { transform-box: view-box; transform-origin: 1045px 430px; animation: search 3s ease-in-out infinite alternate; }
+    }
+    @keyframes drive { from { transform: translateX(-760px); } to { transform: translateX(0); } }
+    @keyframes brake { 0% { transform: rotate(0); } 35% { transform: rotate(1.6deg); } 100% { transform: rotate(0); } }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes swing { from { transform: rotate(8deg); } to { transform: rotate(-8deg); } }
+    @keyframes drift { from { transform: translateX(0); } to { transform: translateX(-1200px); } }
+    @keyframes waves { from { transform: translateX(0); } to { transform: translateX(-80px); } }
+    @keyframes fishx {
+      0% { transform: translate(700px, 580px); opacity: 0; } 2% { opacity: 1; }
+      14% { transform: translate(620px, 580px); opacity: 1; } 15%, 100% { transform: translate(620px, 580px); opacity: 0; }
+    }
+    @keyframes fishy {
+      0% { transform: translateY(0) rotate(40deg); } 7% { transform: translateY(-95px) rotate(0); }
+      14%, 100% { transform: translateY(0) rotate(-40deg); }
+    }
+    @keyframes twinkle { from { opacity: .25; } to { opacity: 1; } }
+    @keyframes search { from { transform: rotate(-14deg); } to { transform: rotate(10deg); } }
+    @keyframes cone {
+      0%, 8% { transform: none; opacity: 1; }
+      14% { transform: rotate(-70deg); opacity: 1; }
+      30% { transform: translate(-22px, 140px) rotate(-260deg); opacity: 1; }
+      31%, 90% { transform: translate(-22px, 140px) rotate(-260deg); opacity: 0; }
+      100% { transform: none; opacity: 0; }
+    }
+    @keyframes splash {
+      0%, 29% { opacity: 0; transform: scale(.2); }
+      32% { opacity: 1; transform: scale(1); }
+      42% { opacity: 0; transform: scale(1.4); }
+      100% { opacity: 0; }
+    }
+
+    .honk { opacity: 0; transition: opacity .15s; pointer-events: none; }
+    .honking .honk { opacity: 1; }
+    @media (prefers-reduced-motion: no-preference) {
+      .honking .truck-body { animation: shake .12s linear 4; }
+    }
+    @keyframes shake { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+
+    /* ---------- Text ---------- */
+    .intro { display: grid; gap: 1.5rem; padding: 2rem 0 3rem; }
+    @media (min-width: 880px) { .intro { grid-template-columns: 1.1fr 1fr; gap: 3rem; align-items: start; } }
+    .eyebrow { margin: 0 0 .75rem; font-weight: 700; font-size: .875rem; letter-spacing: .12em; text-transform: uppercase; color: var(--accent-text); }
+    h1 { margin: 0 0 1rem; font-size: clamp(2rem, 3.6vw, 2.9rem); line-height: 1.08; letter-spacing: -.01em; text-wrap: balance; }
+    .lead { color: var(--muted); font-size: 1.125rem; margin: 0 0 1.75rem; max-width: 34rem; }
+    .actions { display: flex; flex-wrap: wrap; gap: .75rem; }
+    .btn {
+      display: inline-flex; align-items: center; gap: .5rem; min-height: 3rem; padding: .75rem 1.3rem;
+      border-radius: 6px; font: inherit; font-weight: 650; text-decoration: none; cursor: pointer; border: 2px solid transparent;
+    }
+    .btn-primary { background: var(--accent); color: #16181b; }
+    .btn-primary:hover { filter: brightness(1.08); }
+    .btn-ghost { border-color: var(--border); color: var(--text); background: transparent; }
+    .btn-ghost:hover { border-color: var(--text); }
+    .hint { color: var(--muted); font-size: .875rem; margin: 1.25rem 0 0; }
+    :focus-visible { outline: 3px solid #1a5fd0; outline-offset: 3px; }
+    :root[data-theme="dark"] :focus-visible { outline-color: #7fb0ff; }
+
+    /* Avvikelserapport */
+    .report {
+      position: relative; background: var(--surface); border: 1px solid var(--border); border-top: 4px solid var(--accent);
+      border-radius: 6px; padding: 1.5rem; box-shadow: 0 12px 30px -18px rgb(0 0 0 / .45);
+    }
+    .report h2 { margin: 0 0 1rem; font-size: 1.25rem; letter-spacing: .02em; text-transform: uppercase; }
+    .report dl { margin: 0; display: grid; }
+    .report dl > div { display: grid; grid-template-columns: 7rem 1fr; gap: .75rem; padding: .6rem 0; border-bottom: 1px dashed var(--border); }
+    .report dt { font-weight: 650; font-size: .875rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); padding-top: .1rem; }
+    .report dd { margin: 0; overflow-wrap: anywhere; }
+    .report code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .9em; background: var(--bg); padding: .1em .35em; border-radius: 3px; }
+    .report .btn { margin-top: 1.25rem; min-height: 2.6rem; padding: .5rem 1rem; font-size: .95rem; }
+    .stamp {
+      position: absolute; right: 1rem; top: 1.1rem; padding: .15rem .6rem; border: 3px solid #c0392b; color: #c0392b;
+      font-weight: 800; letter-spacing: .1em; text-transform: uppercase; font-size: .8rem; transform: rotate(8deg); border-radius: 4px; opacity: .85;
+    }
+    :root[data-theme="dark"] .stamp { color: #ff7a6b; border-color: #ff7a6b; }
+    @media (max-width: 420px) { .report dl > div { grid-template-columns: 1fr; gap: .1rem; } .stamp { position: static; display: inline-block; margin-bottom: .75rem; } }
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    footer { border-top: 1px solid var(--border); padding: 1.25rem 0 2rem; color: var(--muted); font-size: .875rem; }
+    footer a { color: var(--text); }
+  </style>
 </head>
 <body>
   <div class="stripe" aria-hidden="true"></div>
-  <main>
-    <p class="code">FEL 404</p>
-    <h1>Sidan hittades inte</h1>
-    <p>Sidan du letar efter finns inte, eller så har den flyttats. Gå till startsidan för att läsa om våra tjänster eller kontakta oss.</p>
-    <p>Telefon: <a href="tel:+46736997011">073-699 70 11</a></p>
-    <a class="btn" id="hem" href="/">Till startsidan</a>
+
+  <main class="wrap">
+    <figure class="scene-frame">
+      <svg class="scene" viewBox="0 0 1200 600" role="img" aria-labelledby="scen-titel">
+        <title id="scen-titel">Illustration: en kranbil har kört fram till en trasig bro. Kranen håller upp nollan i 404 över avgrunden, och på andra sidan står en fyra och letar med ficklampa.</title>
+        <defs>
+          <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="sky1"/><stop offset="1" class="sky2"/></linearGradient>
+          <linearGradient id="beam" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff3c4" stop-opacity=".75"/><stop offset="1" stop-color="#fff3c4" stop-opacity="0"/></linearGradient>
+          <linearGradient id="cab" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f7b52e"/><stop offset="1" stop-color="#e09500"/></linearGradient>
+          <linearGradient id="beamL" x1="1" y1="0" x2="0" y2="0"><stop offset="0" stop-color="#fff3c4" stop-opacity=".7"/><stop offset="1" stop-color="#fff3c4" stop-opacity="0"/></linearGradient>
+          <clipPath id="river"><rect x="0" y="540" width="1200" height="60"/></clipPath>
+        </defs>
+
+        <!-- Himmel -->
+        <rect width="1200" height="600" fill="url(#sky)"/>
+        <g class="night-only" fill="#fff">
+          <circle class="star" cx="90" cy="60" r="2"/><circle class="star" cx="260" cy="110" r="1.5"/><circle class="star" cx="420" cy="40" r="2"/>
+          <circle class="star" cx="610" cy="90" r="1.5"/><circle class="star" cx="760" cy="50" r="2.2"/><circle class="star" cx="930" cy="120" r="1.5"/>
+          <circle class="star" cx="1110" cy="70" r="2"/><circle class="star" cx="340" cy="180" r="1.2"/><circle class="star" cx="1010" cy="200" r="1.2"/>
+          <path d="M1060 110a38 38 0 1 0 30 58 30 30 0 1 1-30-58z" fill="#f3efe0"/>
+        </g>
+        <circle class="day-only" cx="1040" cy="110" r="44" fill="#ffd66b"/>
+
+        <!-- Moln -->
+        <g class="clouds">
+          <g class="cloud">
+            <path d="M160 120a28 28 0 0 1 52-14 22 22 0 0 1 36 18h-88z"/><path d="M620 70a24 24 0 0 1 44-12 18 18 0 0 1 30 15h-74z"/>
+            <path d="M920 170a30 30 0 0 1 56-15 24 24 0 0 1 38 19h-94z"/>
+            <path d="M1360 120a28 28 0 0 1 52-14 22 22 0 0 1 36 18h-88z"/><path d="M1820 70a24 24 0 0 1 44-12 18 18 0 0 1 30 15h-74z"/>
+            <path d="M2120 170a30 30 0 0 1 56-15 24 24 0 0 1 38 19h-94z"/>
+          </g>
+        </g>
+
+        <!-- Kullar -->
+        <path class="hill2" d="M0 420 C150 330 300 360 420 400 S700 330 860 380 1100 340 1200 370 V600 H0Z"/>
+        <path class="hill" d="M0 470 C200 420 380 450 520 480 S820 430 1000 470 1150 450 1200 460 V600 H0Z"/>
+
+        <!-- Älv -->
+        <rect class="water-dark" x="0" y="540" width="1200" height="60"/>
+        <g clip-path="url(#river)">
+          <g class="waves">
+            <path class="water" d="M0 548 q20-8 40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 V600 H0Z"/>
+          </g>
+        </g>
+        <g class="splash" fill="#cfe7f3">
+          <path d="M760 560 l-10-26 8 4 4-18 6 16 6-20 4 22 8-6 -6 28z"/>
+        </g>
+
+        <!-- Fisk som undrar vad som händer -->
+        <g class="fish-jump"><g class="fish">
+          <path d="M0 0 q18-12 36 0 q-18 12-36 0z" fill="#e8744f"/>
+          <path d="M36 0 l12-9 v18z" fill="#e8744f"/>
+          <circle cx="8" cy="-2" r="2" fill="#16181b"/>
+          <text x="-6" y="-16" font-size="20" font-weight="800" fill="var(--digit)" class="display">?</text>
+        </g></g>
+        <!-- Bron: pelare -->
+        <rect class="concrete-dark" x="470" y="450" width="40" height="110"/>
+        <rect class="concrete-dark" x="830" y="450" width="40" height="110"/>
+        <rect class="concrete-dark" x="110" y="450" width="40" height="110"/>
+
+        <!-- Vänster brodel med trasig kant -->
+        <path class="concrete" d="M0 430 H560 l-8 10 10 8 -14 6 6 8 H0Z"/>
+        <path class="concrete-dark" d="M0 454 H548 l6 8 H0Z"/>
+        <!-- Höger brodel -->
+        <path class="concrete" d="M1200 430 H770 l-10 9 12 7 -8 8 10 8 H1200Z"/>
+        <path class="concrete-dark" d="M1200 454 H764 l10 8 H1200Z"/>
+        <!-- Vägmarkeringar -->
+        <g fill="#f5f3ee" opacity=".85">
+          <rect x="20" y="436" width="40" height="4"/><rect x="100" y="436" width="40" height="4"/><rect x="180" y="436" width="40" height="4"/>
+          <rect x="260" y="436" width="40" height="4"/><rect x="340" y="436" width="40" height="4"/><rect x="420" y="436" width="40" height="4"/>
+          <rect x="500" y="436" width="40" height="4"/>
+          <rect x="800" y="436" width="40" height="4"/><rect x="880" y="436" width="40" height="4"/><rect x="960" y="436" width="40" height="4"/>
+          <rect x="1040" y="436" width="40" height="4"/><rect x="1120" y="436" width="40" height="4"/>
+        </g>
+        <!-- Räcken -->
+        <g stroke="#5b626c" stroke-width="3">
+          <path d="M0 412 H552 M1200 412 H778"/>
+          <path d="M40 412v18M120 412v18M200 412v18M280 412v18M360 412v18M440 412v18M520 412v18M820 412v18M900 412v18M980 412v18M1060 412v18M1140 412v18"/>
+        </g>
+
+        <!-- Första fyran -->
+        <text class="digit display" x="30" y="428" font-size="190">4</text>
+
+        <!-- Andra fyran letar med ficklampa -->
+        <g>
+          <text class="digit display" x="880" y="428" font-size="190">4</text>
+          <!-- ögon -->
+          <g fill="var(--bg)"><circle cx="928" cy="318" r="9"/><circle cx="954" cy="318" r="9"/></g>
+          <g fill="var(--digit)"><circle cx="925" cy="319" r="4"/><circle cx="951" cy="319" r="4"/></g>
+          <!-- ficklampa -->
+          <g class="search">
+            <path d="M884 370 L720 318 L720 424 Z" fill="url(#beamL)" class="night-only"/>
+            <rect x="890" y="364" width="26" height="12" rx="3" fill="#5b626c"/>
+            <rect x="884" y="362" width="8" height="16" rx="2" fill="#c9ccd1"/>
+          </g>
+        </g>
+
+        <!-- Vägskylt -->
+        <g>
+          <rect x="1098" y="300" width="6" height="130" fill="#6f757e"/>
+          <rect x="1040" y="268" width="122" height="62" rx="6" fill="#1f5fa8" stroke="#fff" stroke-width="3"/>
+          <text x="1101" y="294" fill="#fff" font-size="15" font-weight="700" text-anchor="middle" font-family="system-ui,sans-serif">SIDAN</text>
+          <text x="1101" y="318" fill="#fff" font-size="15" font-weight="700" text-anchor="middle" font-family="system-ui,sans-serif">??? km</text>
+        </g>
+
+        <!-- Kon som ramlar i älven -->
+        <g class="cone">
+          <path d="M780 430 l9-34 h8 l9 34z" fill="#f2a100"/>
+          <path d="M784 414 h18" stroke="#fff" stroke-width="5"/>
+          <rect x="774" y="427" width="38" height="5" fill="#2b3038"/>
+        </g>
+
+        <!-- Kranbil (klickbar: tutar) -->
+        <g class="truck" id="truck" tabindex="0" role="button" aria-label="Tuta med lastbilen">
+          <g class="drive">
+            <g class="truck-body">
+              <!-- strålkastare (natt) -->
+              <path class="night-only" d="M544 360 L760 330 L760 420 Z" fill="url(#beam)"/>
+              <rect x="180" y="368" width="366" height="22" fill="#2b3038"/>
+              <rect x="180" y="344" width="232" height="26" fill="#3b424b"/>
+              <path d="M180 344 H412" stroke="#f2a100" stroke-width="3"/>
+              <!-- kran -->
+              <rect x="414" y="258" width="22" height="114" rx="3" fill="url(#cab)"/>
+              <path d="M425 266 L560 190" stroke="#f2a100" stroke-width="18" stroke-linecap="round"/>
+              <path d="M560 190 L640 214" stroke="#f2a100" stroke-width="13" stroke-linecap="round"/>
+              <path d="M636 213 L668 222" stroke="#d8dadd" stroke-width="9" stroke-linecap="round"/>
+              <path d="M432 330 L500 232" stroke="#c9ccd1" stroke-width="7" stroke-linecap="round"/>
+              <circle cx="425" cy="266" r="7" fill="#2b3038"/><circle cx="560" cy="190" r="7" fill="#2b3038"/>
+              <!-- hytt -->
+              <path d="M440 390V306q0-22 22-22h46l32 46q6 9 6 20v40Z" fill="url(#cab)"/>
+              <path d="M458 300h44l26 36h-70Z" fill="#14171b" fill-opacity=".88"/>
+              <rect x="536" y="350" width="10" height="12" rx="2" fill="#fff3d1"/>
+              <rect x="470" y="276" width="26" height="8" rx="3" fill="#ffcf5c"/>
+              <!-- hjul -->
+              <g class="wheel"><circle cx="232" cy="404" r="26" fill="#0d0f12" stroke="#454c56" stroke-width="5"/><path d="M232 386v36M214 404h36" stroke="#5b626c" stroke-width="4"/></g>
+              <g class="wheel"><circle cx="292" cy="404" r="26" fill="#0d0f12" stroke="#454c56" stroke-width="5"/><path d="M292 386v36M274 404h36" stroke="#5b626c" stroke-width="4"/></g>
+              <g class="wheel"><circle cx="500" cy="404" r="26" fill="#0d0f12" stroke="#454c56" stroke-width="5"/><path d="M500 386v36M482 404h36" stroke="#5b626c" stroke-width="4"/></g>
+              <!-- tutbubbla -->
+              <g class="honk">
+                <path d="M470 232 h120 a10 10 0 0 1 10 10 v34 a10 10 0 0 1-10 10 h-86 l-18 16 4-16 h-20 a10 10 0 0 1-10-10 v-34 a10 10 0 0 1 10-10z" fill="#fff" stroke="#16181b" stroke-width="3"/>
+                <text x="530" y="268" font-size="22" font-weight="800" text-anchor="middle" fill="#16181b" class="display">TUT TUT!</text>
+              </g>
+            </g>
+            <!-- nollan hänger i kroken -->
+            <g class="swing">
+              <path d="M668 222 V268" stroke="#c9ccd1" stroke-width="3"/>
+              <path d="M660 266 h16 v10 q0 10-8 10 t-8-6" fill="none" stroke="#5b626c" stroke-width="5" stroke-linecap="round"/>
+              <path d="M668 284 L618 318 M668 284 L718 318" stroke="#c9ccd1" stroke-width="3"/>
+              <text class="digit-zero display" x="668" y="452" font-size="190" text-anchor="middle">0</text>
+            </g>
+          </g>
+        </g>
+      </svg>
+    </figure>
+
+    <section class="intro">
+      <div>
+        <p class="eyebrow">Fel 404 · Lasten saknas</p>
+        <h1 class="display">Sidan hittades inte. Vägen hittades inte heller.</h1>
+        <p class="lead">
+          Vi har letat överallt: på flaket, under bron och i handskfacket. Nollan har vi fått tag i,
+          men resten av sidan är fortfarande spårlöst försvunnen.
+        </p>
+        <div class="actions">
+          <a class="btn btn-primary" id="hem" href="/">Kör tillbaka till startsidan</a>
+          <a class="btn btn-ghost" href="tel:+46736997011">Ring oss – vi hittar vägen</a>
+        </div>
+        <p class="hint">Tips: klicka på lastbilen.</p>
+      </div>
+
+      <article class="report" aria-labelledby="rapport-rubrik">
+        <span class="stamp">Ej hittad</span>
+        <h2 id="rapport-rubrik" class="display">Avvikelserapport nr 404</h2>
+        <dl>
+          <div><dt>Datum</dt><dd id="datum">Idag</dd></div>
+          <div><dt>Plats</dt><dd><code id="plats">okänd adress</code></dd></div>
+          <div><dt>Orsak</dt><dd id="orsak" aria-live="polite">Sidan lastades på fel flak och är nu på väg till Haparanda.</dd></div>
+          <div><dt>Åtgärd</dt><dd>Kranbilen skickas tillbaka till startsidan.</dd></div>
+          <div><dt>Söktid</dt><dd><span id="soktid">0:00</span> och räknar</dd></div>
+        </dl>
+        <button class="btn btn-ghost" type="button" id="ny-orsak">Ge mig en annan förklaring</button>
+      </article>
+    </section>
   </main>
+
+  <footer>
+    <div class="wrap">Seljanen Transport AB · Kranbil och specialtransporter · <a href="tel:+46736997011">073-699 70 11</a></div>
+  </footer>
+
   <script>
-    // På GitHub Pages utan egen domän ligger sidan under /repo-namn/.
-    if (location.hostname.endsWith('github.io')) {
-      var first = location.pathname.split('/')[1];
-      if (first) document.getElementById('hem').setAttribute('href', '/' + first + '/');
-    }
+    (function () {
+      // Startsidans adress: på github.io ligger sidan under /repo-namn/, annars i roten.
+      var home = '/';
+      if (location.hostname.endsWith('github.io')) {
+        var first = location.pathname.split('/')[1];
+        if (first) home = '/' + first + '/';
+      }
+      document.getElementById('hem').setAttribute('href', home);
+
+      // Favicon (relativa sökvägar fungerar inte på 404-sidan)
+      [['favicon.svg', 'image/svg+xml']].forEach(function (f) {
+        var l = document.createElement('link');
+        l.rel = 'icon'; l.type = f[1]; l.href = home + 'assets/icons/' + f[0];
+        document.head.appendChild(l);
+      });
+
+      // Rapporten
+      document.getElementById('datum').textContent = new Date().toLocaleDateString('sv-SE');
+      document.getElementById('plats').textContent = decodeURIComponent(location.pathname) || '/';
+
+      var reasons = [
+        'Sidan lastades på fel flak och är nu på väg till Haparanda.',
+        'Föraren följde GPS:en. GPS:en sa ”sväng höger”. Där fanns ingen väg till höger.',
+        'Bron fanns med i planeringen. Tyvärr inte i verkligheten.',
+        'Någon stal lastbilen. Tjuven hittades inte heller. Inte lastbilen. Inte sidan.',
+        'En älg står mitt på vägen och vägrar flytta på sig. Vi förhandlar.',
+        'Lasten var säkrad med spännband. Sidan var det inte.',
+        'Vi lyfte sidan så högt att den försvann i molnen.',
+        'Sidan parkerades på en lastzon och blev bortforslad. Ironiskt nog av en kranbil.',
+        'Sidan tog en fikapaus. Den har inte kommit tillbaka sedan dess.',
+        'Chauffören svängde av vid ”Sidan ??? km”. Skylten hade tydligen rätt.',
+        'Nollan hittade vi. Fyrorna vägrar prata.',
+        'Sidan gick sönder under lyftet. Vi skyller på vinden.',
+        'Adressen stämde. Huset stod bara inte där.',
+        'Vägverket har flyttat vägen. Ingen sa något till oss.'
+      ];
+      var orsak = document.getElementById('orsak');
+      var current = Math.floor(Math.random() * reasons.length);
+      orsak.textContent = reasons[current];
+      document.getElementById('ny-orsak').addEventListener('click', function () {
+        var next;
+        do { next = Math.floor(Math.random() * reasons.length); } while (next === current);
+        current = next;
+        orsak.textContent = reasons[current];
+      });
+
+      // Söktid
+      var start = Date.now(), el = document.getElementById('soktid');
+      setInterval(function () {
+        var s = Math.floor((Date.now() - start) / 1000);
+        el.textContent = Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0');
+      }, 1000);
+
+      // Tuta
+      var truck = document.getElementById('truck'), ctx = null, timer = null;
+      function beep(t, freq) {
+        var o = ctx.createOscillator(), o2 = ctx.createOscillator(), g = ctx.createGain();
+        o.type = 'sawtooth'; o2.type = 'square';
+        o.frequency.value = freq; o2.frequency.value = freq * 1.26;
+        g.gain.setValueAtTime(0.0001, t);
+        g.gain.exponentialRampToValueAtTime(0.12, t + 0.02);
+        g.gain.setValueAtTime(0.12, t + 0.2);
+        g.gain.exponentialRampToValueAtTime(0.0001, t + 0.28);
+        o.connect(g); o2.connect(g); g.connect(ctx.destination);
+        o.start(t); o2.start(t); o.stop(t + 0.3); o2.stop(t + 0.3);
+      }
+      function honk() {
+        try {
+          ctx = ctx || new (window.AudioContext || window.webkitAudioContext)();
+          var t = ctx.currentTime;
+          beep(t, 330); beep(t + 0.36, 330);
+        } catch (e) {}
+        truck.classList.add('honking');
+        clearTimeout(timer);
+        timer = setTimeout(function () { truck.classList.remove('honking'); }, 1100);
+      }
+      truck.addEventListener('click', honk);
+      truck.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); honk(); }
+      });
+    })();
   </script>
 </body>
 </html>
