@@ -24,26 +24,15 @@ Alla sökvägar i HTML/CSS är relativa, så sidan fungerar både på en egen do
 
 ## 1. Företagsuppgifter
 
-Följande uppgifter är inlagda i `index.html`, `404.html`, `site.webmanifest` och JSON-LD:
+Kontaktuppgifter, adress och org.nr finns i `index.html` (texter, länkar och JSON-LD i
+`<head>`), `404.html` och `site.webmanifest`.
 
-| Uppgift | Värde |
-|---|---|
-| Företagsnamn | Seljanen Transport AB |
-| Ort (i texter och SEO) | Stockholm |
-| Telefon (visning / länk) | 073-699 70 11 / `+46736997011` |
-| E-post | andre@seljanentransport.se |
-| Adress | Venusvägen 8c, 141 33 Huddinge |
-| Org.nr | 559071-7756 |
+Ändras en uppgift: gör sök-och-ersätt i hela projektet (t.ex. i VS Code:
+`Cmd/Ctrl + Shift + H`). Telefonnumret finns i två format – visningsformat och
+internationellt format (`+46…`) i `tel:`-länkarna och JSON-LD.
 
-Öppettider visas inte på sidan. Vill du lägga till dem igen: lägg till en rad i
+Öppettider visas inte på sidan. Vill du lägga till dem: lägg till en rad i
 `<dl class="contact-details">` och fältet `"openingHours"` (t.ex. `"Mo-Fr 07:00-17:00"`) i JSON-LD.
-
-**Kvar att fylla i:** texten `[Kort beskrivning av företagets bakgrund …]` i sektionen *Om oss*.
-Sök efter `[` i `index.html` för att hitta den.
-
-Ändras en uppgift senare: gör sök-och-ersätt i hela projektet (t.ex. i VS Code:
-`Cmd/Ctrl + Shift + H`). Telefonnumret finns i två format – visningsformat och `+46…` i
-`tel:`-länkarna och JSON-LD.
 
 Kontrollera också texterna i sektionerna *Tjänster* och *Om oss* så att de beskriver det ni
 faktiskt gör. Punktlistorna under varje tjänst är exempel och kan ändras fritt.
@@ -177,7 +166,6 @@ python3 -m http.server 8000
 
 ## 5. Checklista före publicering
 
-- [ ] Bakgrundstexten i *Om oss* är ifylld (sök efter `[` i `index.html`)
 - [ ] JSON-LD i `<head>` innehåller bara korrekta uppgifter (testa med
       [Googles test för rich results](https://search.google.com/test/rich-results))
 - [ ] Canonical, `og:url`, `robots.txt` och `sitemap.xml` pekar på rätt domän
